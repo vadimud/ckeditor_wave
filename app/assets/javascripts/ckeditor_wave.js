@@ -32,6 +32,7 @@ function newEditor(ck_editor) {
                 'alignRight'
             ]
         },
+	extraPlugins:  [ cancelDropEvents ],
         language: 'ru'
     } ).then(function (editor) {
       contentEditor = editor;
@@ -103,6 +104,23 @@ var server = {
   abortUpload: abort,
   xhr: null
 };
+
+function cancelDropEvents( editor ) {
+    // High priority means that the callbacks below will be called before other CKEditor's plugins.
+
+    editor.editing.view.document.on( 'drop', ( evt, data ) => {
+        // Stop execute next callbacks.
+        evt.stop();
+
+    // Stop the default event action.
+    data.preventDefault();
+}, { priority: 'high' } );
+
+    editor.editing.view.document.on( 'dragover', ( evt, data ) => {
+        evt.stop();
+    data.preventDefault();
+}, { priority: 'high' } );
+}
 
 function upload(file) {
   return new Promise(function (resolve, reject) {
