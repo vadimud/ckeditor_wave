@@ -39,13 +39,13 @@ function newEditor(ck_editor) {
           return new UploadAdapter(loader);
         };
 
-        ck_editor.nextSibling.querySelector('.ck-content').addEventListener(
-          'DOMNodeRemoved', (event) => {
-          var element = event.target;
-          var classes = element.className ? element.className.split(' ') : [];
-          if (classes.includes('image'))
-            server.destroy(id(element.children[0]));
-        });
+//        ck_editor.nextSibling.querySelector('.ck-content').addEventListener(
+//          'DOMNodeRemoved', (event) => {
+//          var element = event.target;
+//          var classes = element.className ? element.className.split(' ') : [];
+//          if (classes.includes('image'))
+//            server.destroy(id(element.children[0]));
+//        });
 
 	editor.editing.view.document.on( 'change:isFocused', function( evt, name, value ) {
           if (value) {
