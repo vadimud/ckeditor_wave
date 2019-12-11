@@ -112,13 +112,13 @@ function cancelDropEvents( editor ) {
 }
 
 function upload(file) {
-  return new Promise((resolve, reject) => {
+  return file.then(file => new Promise((resolve, reject) => {
     server.xhr = new XMLHttpRequest();
     var formData = new FormData();
     server.xhr.upload.onprogress = (evt) => {
       if (evt.lengthComputable) 
         {
-	  server.onUploadProgress(evt);
+    server.onUploadProgress(evt);
         } 
     };
     server.xhr.onreadystatechange = () => {
@@ -135,7 +135,7 @@ function upload(file) {
     formData.set('ck_image', file);
     server.xhr.open('POST', '/ckeditor_wave/ck_images');
     server.xhr.send(formData);
-  });
+  }));
 }
 
 function destroy(id) {
